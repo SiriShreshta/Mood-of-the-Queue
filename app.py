@@ -5,7 +5,6 @@ from datetime import datetime
 import pandas as pd
 import plotly.express as px
 from streamlit_autorefresh import st_autorefresh
-import json
 
 # Page setup
 st.set_page_config(page_title="Mood Logger", page_icon="🧠", layout="centered")
@@ -13,8 +12,7 @@ st_autorefresh(interval=30 * 1000, key="refresh")
 
 # Google Sheets authentication using Streamlit secrets
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-creds_dict = json.loads(st.secrets["creds"])  # Replace creds.json with Streamlit secret
-creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+creds = ServiceAccountCredentials.from_json_keyfile_dict(st.secrets["creds"], scope)
 client = gspread.authorize(creds)
 sheet = client.open("Mood Log").sheet1
 
@@ -56,5 +54,3 @@ if not df.empty:
         st.info("No mood entries found for this date.")
 else:
     st.info("No data available yet.")
-
-
