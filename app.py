@@ -57,6 +57,4 @@ if not df.empty:
 else:
     st.info("No data available yet.")
 
-# Footer
-st.markdown("---")
-st.caption("📊 Built by Siri Shreshta Reddy • Take-Home Assignment for Mochi Health")
+
